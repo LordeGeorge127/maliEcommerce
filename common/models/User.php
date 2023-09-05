@@ -217,4 +217,22 @@ class User extends ActiveRecord implements IdentityInterface
         $fullname = trim($this->firstname . ' ' . $this->lastname);
         return $fullname ?: $this->email;
     }
+    /**
+     * @return mixed
+     */
+    public function getAddresses()
+    {
+        return $this->hasMany(UserAddress::class, ['user_id' => 'id']);
+    }
+
+    /**
+     * @return  UserAddress/null
+     */
+    public function getAddress(): ?UserAddress
+    {
+//        var_dump($this->addresses[0]);exit;
+        $address = $this->addresses[0] ?? new UserAddress();
+        $address->user_id = $this->id;
+        return $address;
+    }
 }
