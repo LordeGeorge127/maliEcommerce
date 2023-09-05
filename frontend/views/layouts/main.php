@@ -36,8 +36,11 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        ['label' => 'Cart <span id="cart-quantity" class="badge badge-danger" style="color:black">5</span> ',
+            'url' => ['/cart/index'],
+            'class'=>['btn btn-outline-dark mt-auto'],
+            'encode'=>false],
+
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
