@@ -9,7 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property int $user_id
- * @property string $addresss
+ * @property string|null $address
  * @property string $city
  * @property string $state
  * @property string $country
@@ -33,9 +33,9 @@ class UserAddress extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'addresss', 'city', 'state', 'country'], 'required'],
+            [['user_id', 'address', 'city', 'state', 'country'], 'required'],
             [['user_id'], 'integer'],
-            [['addresss', 'city', 'state', 'country', 'zipcode'], 'string', 'max' => 50],
+            [['address', 'city', 'state', 'country', 'zipcode'], 'string', 'max' => 50],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -48,7 +48,7 @@ class UserAddress extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'addresss' => 'Addresss',
+            'address' => 'Address',
             'city' => 'City',
             'state' => 'State',
             'country' => 'Country',
