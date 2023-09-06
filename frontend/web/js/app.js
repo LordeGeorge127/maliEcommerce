@@ -1,4 +1,5 @@
 $(function(){
+    const $cartQuantity = $('#cart-quantity');
     const $addToCart = $('.btn-add-to-cart');
     $addToCart.click(ev =>
         {
@@ -10,9 +11,11 @@ $(function(){
                 method:'POST',
                 url:$this.attr('href'),
                 data: {id},
-                success:function (arguments){
+                success:function (){
                     console.log(arguments)
+                    $cartQuantity.text(parseInt($cartQuantity.text() || 0) + 1);
                 }
+
             })
 
         }

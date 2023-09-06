@@ -17,6 +17,8 @@ use Yii;
  */
 class CartItems extends \yii\db\ActiveRecord
 {
+    const SESSION_KEY = 'Cart-Items';
+
     /**
      * {@inheritdoc}
      */
@@ -89,10 +91,11 @@ class CartItems extends \yii\db\ActiveRecord
         else{
             $cartItems = CartItems::findBySql("
             SELECT c.product_id as id,c.quantity,
-            p.name,p.image, p.price,p.price * c.quantity as total_price
+            p.name,p.image, p.price,
+            p.price * c.quantity as total_price
             from cart_items c 
                 LEFT JOIN product p on p.id = c.product_id 
-            where created_by= :userId",
+            where user_id= :userId",
             ['userId'=> $currUserId]
             )->asArray()
             ->all();
