@@ -27,7 +27,7 @@ use common\models\Product;
     </div>
     <!-- Product actions-->
     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent text-center">
-        <a href="#"
+        <a href="<?php echo \yii\helpers\Url::to(['/cart/add'])?>"
            class="btn btn-outline-dark mt-auto btn-add-to-cart">
             Add to cart</a>
     </div>

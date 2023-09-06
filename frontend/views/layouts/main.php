@@ -35,7 +35,6 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'Cart <span id="cart-quantity" class="badge badge-danger" style="color:black">5</span> ',
             'url' => ['/cart/index'],
             'class'=>['btn btn-outline-dark mt-auto'],

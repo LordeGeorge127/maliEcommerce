@@ -79,4 +79,25 @@ class CartItems extends \yii\db\ActiveRecord
     {
         return new \common\models\query\CartItemsQuery(get_called_class());
     }
+
+    public static function getItemsForUser($currUserId)
+    {
+        if (Yii::$app->user->isGuest) {
+            //retrieve cart items from seesion
+            $cartItems = Yii::$app->session->get(CartItems::SESSION_KEY, []);
+        }
+        else{
+            $cartItems = CartItems::findBySql("
+            SELECT c.product_id as id,c.quantity,
+            p.name,p.image, p.price,p.price * c.quantity as total_price
+            from cart_items c 
+                LEFT JOIN product p on p.id = c.product_id 
+            where created_by= :userId",
+            ['userId'=> $currUserId]
+            )->asArray()
+            ->all();
+        }
+        return $cartItems;
+    }
+
 }

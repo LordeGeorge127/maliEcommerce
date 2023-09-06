@@ -162,4 +162,5 @@ class Product extends \yii\db\ActiveRecord
         return StringHelper::truncateWords($this->description,7);
     }
 
+
 }
