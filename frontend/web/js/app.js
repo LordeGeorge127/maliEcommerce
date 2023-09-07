@@ -1,4 +1,5 @@
 $(function(){
+    const $itemQuantity = $('.item-quantity')
     const $cartQuantity = $('#cart-quantity');
     const $addToCart = $('.btn-add-to-cart');
     $addToCart.click(ev =>
@@ -17,9 +18,25 @@ $(function(){
                 }
 
             })
-
         }
-
-
     )
+    $itemQuantity.change(ev =>
+    {
+        const $this =$(ev.target);
+        let $tr = $this.closest('tr')
+        const $td = $this.closest('td');
+        const id = $tr.data('id');
+        $.ajax({
+            method: 'post',
+            url: $tr.data('url'),
+            data:{id, quantity: $this.val()},
+            success:function (result){
+                console.log(result);
+                $cartQuantity.text(result.quantity);
+                $td.next().text([result.price]);
+
+            }
+
+        })
+    })
 });

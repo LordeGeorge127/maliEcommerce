@@ -18,7 +18,7 @@ class CartController extends \frontend\base\Controller
         return [
             [
                 'class' => ContentNegotiator::class,
-                'only' => ['add'],
+                'only' => ['add','change-quantity'],
                 'formats' => [
                     'application/json' => Response::FORMAT_JSON,
                 ]
@@ -61,9 +61,9 @@ class CartController extends \frontend\base\Controller
 
             $cartItems = \Yii::$app->session->get(CartItems::SESSION_KEY, []);
             $found = false;
-            foreach ($cartItems as $i => $cartItem) {
-                if ($cartItem['id'] == $id) {
-                    $cartItems[$i]['quantity']++;
+            foreach ($cartItems as $i => $cartItem) { //or $cartitems as &$item
+                if ($cartItem['id'] == $id) {  //same
+                    $cartItems[$i]['quantity']++;//$item['quantity']++
                     $found = true;
                     break;
                 }
@@ -105,6 +105,37 @@ class CartController extends \frontend\base\Controller
                 ];
             }
         }
+    }
+    public function actionChangeQuantity()
+    {
+        $id = \Yii::$app->request->post('id');
+        $product = Product::find()->id($id)->published()->one();
+        if (!$product) {
+            throw new NotFoundHttpException("Product does not exist");
+        }
+        $quantity = \Yii::$app->request->post('quantity');
+        if (\Yii::$app->user->isGuest){
+            $cartItems = \Yii::$app->session->get(CartItems::SESSION_KEY,[]);
+            foreach ($cartItems as &$cartItem)
+            {
+                if( $cartItem['id'] === $id)
+                {
+                    $cartItem['quantity']= $quantity;
+                    break;
+                }
+            }
+            \Yii::$app->session->set(CartItems::SESSION_KEY,$cartItems);
+        }else{
+            $cartItem = CartItems::find()->userId(\Yii::$app->user->id)->productId($id)->one();
+            if ($cartItem){
+                $cartItem->quantity = $quantity;
+                $cartItem->save();
+            }
+        }
+        return [
+            'quantity' => CartItems::getTotalQuantityForUser(\Yii::$app->user->id),
+            'price' => CartItems::getTotalPriceForItemForUser($id,\Yii::$app->user->id)
+        ];
     }
     public function actionDelete($id){
         if (\Yii::$app->user->isGuest)

@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\VarDumper;
 
 /**
  * This is the model class for table "{{%cart_items}}".
@@ -87,8 +88,7 @@ class CartItems extends \yii\db\ActiveRecord
         if (Yii::$app->user->isGuest) {
             //retrieve cart items from seesion
             $cartItems = Yii::$app->session->get(CartItems::SESSION_KEY, []);
-        }
-        else{
+        } else {
             $cartItems = CartItems::findBySql("
             SELECT c.product_id as id,c.quantity,
             p.name,p.image, p.price,
@@ -96,11 +96,50 @@ class CartItems extends \yii\db\ActiveRecord
             from cart_items c 
                 LEFT JOIN product p on p.id = c.product_id 
             where user_id= :userId",
-            ['userId'=> $currUserId]
+                ['userId' => $currUserId]
             )->asArray()
-            ->all();
+                ->all();
         }
         return $cartItems;
+    }
+
+    public static function getTotalQuantityForUser($currUserId)
+    {
+        if (\Yii::$app->user->isGuest) {
+            $cartItems = \Yii::$app->session->get(CartItems::SESSION_KEY, []);
+            $sum = 0;
+            foreach ($cartItems as $cartItem) {
+                $sum += $cartItem['quantity'];
+            }
+        } else {
+            $sum = CartItems::findBySql("
+        SELECT SUM(quantity) FROM cart_items WHERE user_id=:userId
+        ", ['userId' => $currUserId])->scalar();
+        }
+        return $sum;
+    }
+
+    public static function getTotalPriceForItemForUser($productId, $currUserId)
+    {
+        if (\Yii::$app->user->isGuest) {
+            $cartItems = \Yii::$app->session->get(CartItems::SESSION_KEY, []);
+            $sum = 0;
+            foreach ($cartItems as $cartItem) {
+                if ($cartItem['id'] == $productId) {
+
+                    $sum += $cartItem['quantity'] * $cartItem['price'];
+                }
+            }
+//            VarDumper::dump($cartItems, 10, true);
+
+        } else {
+            $sum = CartItems::findBySql("
+        SELECT SUM(c.quantity * p.price ) 
+        FROM cart_items c 
+            LEFT JOIN product p on c.product_id = p.id  WHERE product_id=:productId AND user_id=:userId
+        ", ['productId'=>$productId,'userId' => $currUserId])->scalar();
+        }
+        return $sum;
     }
 
 }
