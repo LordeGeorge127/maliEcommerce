@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "{{%order_address}}".
  *
  * @property int $order_id
- * @property string $adddress
+ * @property string $address
  * @property string $city
  * @property string $state
  * @property string $country
@@ -32,9 +32,9 @@ class OrderAddress extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['order_id', 'adddress', 'city', 'state', 'country'], 'required'],
+            [['order_id', 'address', 'city', 'state', 'country'], 'required'],
             [['order_id'], 'integer'],
-            [['adddress', 'city', 'state', 'country', 'zipcode'], 'string', 'max' => 50],
+            [['address', 'city', 'state', 'country', 'zipcode'], 'string', 'max' => 50],
             [['order_id'], 'unique'],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Order::class, 'targetAttribute' => ['order_id' => 'id']],
         ];
@@ -47,7 +47,7 @@ class OrderAddress extends \yii\db\ActiveRecord
     {
         return [
             'order_id' => 'Order ID',
-            'adddress' => 'Adddress',
+            'address' => 'Address',
             'city' => 'City',
             'state' => 'State',
             'country' => 'Country',

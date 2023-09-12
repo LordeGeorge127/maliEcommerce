@@ -137,9 +137,38 @@ class CartItems extends \yii\db\ActiveRecord
         SELECT SUM(c.quantity * p.price ) 
         FROM cart_items c 
             LEFT JOIN product p on c.product_id = p.id  WHERE product_id=:productId AND user_id=:userId
-        ", ['productId'=>$productId,'userId' => $currUserId])->scalar();
+        ", ['productId' => $productId, 'userId' => $currUserId])->scalar();
         }
         return $sum;
     }
 
+    public static function getTotalPriceForUser($currUserId)
+    {
+        if (\Yii::$app->user->isGuest) {
+            $cartItems = \Yii::$app->session->get(CartItems::SESSION_KEY, []);
+            $sum = 0;
+            foreach ($cartItems as $cartItem) {
+                $sum += $cartItem['quantity'] * $cartItem['price'];
+
+            }
+//            VarDumper::dump($cartItems, 10, true);
+
+        } else {
+            $sum = CartItems::findBySql("
+        SELECT SUM(c.quantity * p.price ) 
+        FROM cart_items c 
+            LEFT JOIN product p on c.product_id = p.id  WHERE  user_id=:userId
+        ", ['userId' => $currUserId])->scalar();
+        }
+        return $sum;
+    }
+
+    public static function clearCartItems($currUserId)
+    {
+        if (\Yii::$app->user->isGuest) {
+            Yii::$app->session->remove(CartItems::SESSION_KEY);
+        } else {
+            CartItems::deleteAll(['user_id' => $currUserId]);
+        }
+    }
 }
