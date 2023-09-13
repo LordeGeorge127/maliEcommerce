@@ -96,7 +96,6 @@ $orderAddress = $order->orderAddress;
     </div>
 </div>
 <script>
-    //var totalPriceUSD = <?php //echo json_encode( Yii::$app->formatter->asCurrency($totalPriceUSD, 'USD')) ?>// ;
     paypal.Buttons({
         createOrder: async (data, actions) => {
             try {

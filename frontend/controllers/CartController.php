@@ -136,7 +136,7 @@ class CartController extends \frontend\base\Controller
         }
         return [
             'quantity' => CartItems::getTotalQuantityForUser(\Yii::$app->user->id),
-            'price' => CartItems::getTotalPriceForItemForUser($id, \Yii::$app->user->id)
+            'price' => Yii::$app->formatter->asCurrency(CartItems::getTotalPriceForItemForUser($id, \Yii::$app->user->id))
         ];
     }
 

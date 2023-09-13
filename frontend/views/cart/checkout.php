@@ -55,6 +55,34 @@ $totalPriceUSD = $totalPrice * $USD;
                 <h4>Order Summary</h4>
             </div>
             <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Image</th>
+                        <th>Unit Price</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($cartItems as $item): ?>
+                        <tr>
+                            <td><?php echo $item['name'] ?></td>
+                            <td>
+                                <img src="<?php echo \common\models\Product::formatImage($item['image']) ?>"
+                                     style="width:50px"
+                                     alt="">
+                            </td>
+                            <td><?php echo Yii::$app->formatter->asCurrency($item['price']) ?></td>
+                            <td><?php echo $item['quantity'] ?></td>
+                            <td><?php echo Yii::$app->formatter->asCurrency($item['total_price']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+
+                <hr>
                 <table class="table">
                     <tr>
                         <td> Total Items</td>
