@@ -35,7 +35,7 @@ AppAsset::register($this);
                 <!--            <div class="sidebar-brand-icon rotate-n-15">-->
                 <!--                <i class="fas fa-laugh-wink"></i>-->
                 <!--            </div>-->
-                <div class="sidebar-brand-text mx-3">Yii2 E-commerce</div>
+                <div class="sidebar-brand-text mx-3"><?php echo Yii::$app->name?></div>
             </a>
 
             <!-- Divider -->
@@ -304,7 +304,7 @@ AppAsset::register($this);
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2023</span>
+                        <span>Copyright &copy; <?php echo Yii::$app->name ?>  <?php echo date('Y') ?></span>
                     </div>
                 </div>
             </footer>
