@@ -1,3 +1,7 @@
+#OrdersTable td
+{
+    white-space: nowrap;
+}
 .td-actions{
     white-space: nowrap;
 }
