@@ -41,7 +41,15 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $model->firstname . ' ' . $model->lastname;
                 }],
             'total_price:currency',
-            'status:OrderStatus',
+            [
+                'attribute'=>'status',
+                'filter'=>\yii\bootstrap5\Html::activeDropDownList($searchModel,'status',Order::getStatusLabels(),
+                ['class'=>'form-control',
+                    'prompt'=>'All'])
+                ,
+                'format'=>['OrderStatus']
+            ],
+
             //'email:email',
             //'transaction_id',
             //'paypal_order_id',

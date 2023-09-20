@@ -169,6 +169,13 @@ class Order extends \yii\db\ActiveRecord
             ->setSubject('Order Confirmed' . Yii::$app->name)
             ->send();
     }
-
+    public static function getStatusLabels()
+    {
+        return [
+            self::STATUS_COMPLETED=> 'Paid',
+            self::STATUS_DRAFT => 'Unpaid',
+            self::STATUS_FAILED => 'Failed'
+        ];
+    }
 
 }

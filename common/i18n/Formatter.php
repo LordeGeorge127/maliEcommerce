@@ -10,7 +10,7 @@ class Formatter extends \yii\i18n\Formatter
             return \yii\bootstrap5\Html::tag('span', 'Paid', ['class' => 'badge badge-success']);
         } elseif ($status == Order::STATUS_DRAFT) {
             return \yii\bootstrap5\Html::tag('span', 'Unpaid', ['class' => 'badge badge-secondary']);
-        } else {
+        } elseif($status == Order::STATUS_FAILED) {
             return \yii\bootstrap5\Html::tag('span', 'Failed', ['class' => 'badge badge-danger']);
 
         }
