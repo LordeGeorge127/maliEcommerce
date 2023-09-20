@@ -323,7 +323,7 @@ AppAsset::register($this);
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
+         aria-hidden="true"> 
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -344,6 +344,7 @@ AppAsset::register($this);
     </div>
 
     <?php $this->endBody() ?>
+    <?php echo $this->blocks['bodyEndScript'] ?? ''?>
     </body>
     </html>
 <?php $this->endPage() ?>
