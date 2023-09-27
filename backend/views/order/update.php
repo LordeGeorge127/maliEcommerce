@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
 /** @var common\models\order $model */
@@ -14,8 +15,13 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+    <?php $form = \yii\bootstrap5\ActiveForm::begin(); ?>
+
+    <?= $form->field($model, 'status')->dropDownList($model->getstatusLabels(),
+    ['class'=>'from-control'])?>
+    <div class="form-group">
+        <?= Html::submitButton('Save',['class'=>'btn btn-success']) ?>
+    </div>
+    <?php \yii\bootstrap5\ActiveForm::end()?>
 
 </div>

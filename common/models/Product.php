@@ -7,6 +7,7 @@ use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\FileHelper;
 use yii\helpers\StringHelper;
+use yii\helpers\VarDumper;
 use yii\web\UploadedFile;
 
 /**
@@ -138,6 +139,7 @@ class Product extends \yii\db\ActiveRecord
         $ok = parent::save($runValidation, $attributeNames);
         if ($ok && $this->imageFile) {
             $fullPath = Yii::getAlias('@frontend/web/storage' . $this->image);
+            VarDumper::dump($fullPath,20,true);exit;
             $dir = dirname($fullPath);
            if(!FileHelper::createDirectory($dir) || !$this->imageFile->saveAs($fullPath)){
                $transaction->rollBack();

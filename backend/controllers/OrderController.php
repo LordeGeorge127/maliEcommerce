@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\order;
 use backend\models\search\OrderSearch;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -61,28 +62,6 @@ class OrderController extends Controller
     }
 
     /**
-     * Creates a new order model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
-     */
-    public function actionCreate()
-    {
-        $model = new order();
-
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
-        }
-
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
      * Updates an existing order model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
@@ -92,9 +71,15 @@ class OrderController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if (\Yii::$app->request->isPost) {
+            $status = \Yii::$app->request->post('Order')['status'];
+            $model->status = $status;
+            if (!in_array($status, [Order::STATUS_COMPLETED,Order::STATUS_DRAFT])) {
+                $model->addError('status', 'Invalid Status');
+            } else if ($model->save()) {
+//               VarDumper::dump($status,20,true);exit;
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
@@ -111,8 +96,18 @@ class OrderController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+//        $this->findModel($id)->delete();
+        $order = $this->findModel($id);
+//        VarDumper::dump($order,10,true);exit;
 
+        if ($order !== null) {
+            //delete related orderitems
+            foreach ($order->getOrderItem() as $orderItem) {
+                $orderItem->delete();
+            }
+            $order->delete();
+        }
+//        VarDumper::dump($order,10,true);exit;
         return $this->redirect(['index']);
     }
 

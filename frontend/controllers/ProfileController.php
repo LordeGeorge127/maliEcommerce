@@ -30,11 +30,7 @@ class ProfileController extends  \frontend\base\Controller
     {
         /** @var User $user */
         $user = \Yii::$app->user->identity;
-        $userAddress = $user->getAddress();
-//        echo '<pre>';
-//        var_dump($userAddress);
-//        echo '</pre>';
-//        exit;
+        $userAddress = $user->getAddresses();
         return $this->render('index',[
             'userAddress'=>$userAddress,
             'user'=>$user

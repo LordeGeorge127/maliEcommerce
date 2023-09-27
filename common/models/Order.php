@@ -96,7 +96,10 @@ class Order extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery|\common\models\query\OrderItemQuery
      */
-    public function getOrderItems()
+    public function getOrderItem()
+    {
+        return $this->hasOne(OrderItem::class, ['order_id' => 'id']);
+    } public function getOrderItems()
     {
         return $this->hasMany(OrderItem::class, ['order_id' => 'id']);
     }

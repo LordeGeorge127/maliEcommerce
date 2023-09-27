@@ -98,7 +98,8 @@ class CartController extends \frontend\base\Controller
 
             if ($cartItem->save()) {
                 return [
-                    'success' => true
+                    'success' => true,
+                    'message'=>1,'note'=>'<div class="alert alert-success">Document(s) Uploaded Successfully.</div>'
                 ];
 
             } else {

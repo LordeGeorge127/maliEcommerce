@@ -8,6 +8,7 @@ use frontend\models\VerifyEmailForm;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\data\ActiveDataProvider;
+use yii\helpers\VarDumper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -149,15 +150,18 @@ class SiteController extends \frontend\base\Controller
     public function actionRequestPasswordReset()
     {
         $model = new PasswordResetRequestForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail()) {
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+//        VarDumper::dump(Yii::$app->request->post(),10,true);exit;
+      if (Yii::$app->request->isPost){
+          if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+              if ($model->sendEmail()) {
+                  Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
 
-                return $this->goHome();
-            }
+                  return $this->goHome();
+              }
 
-            Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
-        }
+              Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
+          }
+      }
 
         return $this->render('requestPasswordResetToken', [
             'model' => $model,
