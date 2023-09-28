@@ -139,7 +139,7 @@ class Product extends \yii\db\ActiveRecord
         $ok = parent::save($runValidation, $attributeNames);
         if ($ok && $this->imageFile) {
             $fullPath = Yii::getAlias('@frontend/web/storage' . $this->image);
-            VarDumper::dump($fullPath,20,true);exit;
+//            VarDumper::dump($fullPath,20,true);exit;
             $dir = dirname($fullPath);
            if(!FileHelper::createDirectory($dir) || !$this->imageFile->saveAs($fullPath)){
                $transaction->rollBack();
@@ -148,6 +148,15 @@ class Product extends \yii\db\ActiveRecord
         }
         $transaction->commit();
         return $ok;
+    }
+    public function afterDelete()
+    {
+        parent::afterDelete();
+        if ($this->imageFile){
+//            var_dump(dirname($this->imageFile));exit;
+            $dir = Yii::getAlias('@frontend/web/storage').dirname($this->imageFile);
+            FileHelper::removeDirectory($dir);
+        }
     }
     public function getImageUrl(){
 
@@ -163,6 +172,7 @@ class Product extends \yii\db\ActiveRecord
     public function getShortDescription(){
         return StringHelper::truncateWords($this->description,7);
     }
+
 
 
 }

@@ -101,3 +101,16 @@ a.desc:after {
 {
     text-decoration: none;
 }
+.img-wrapper{
+   /*height: 300px;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.img-wrapper img{
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    margin: 0 auto;
+    display: block;
+}
