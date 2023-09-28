@@ -6,6 +6,7 @@ use common\models\User;
 use common\models\UserAddress;
 use Yii;
 use yii\filters\AccessControl;
+use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 
@@ -30,7 +31,8 @@ class ProfileController extends  \frontend\base\Controller
     {
         /** @var User $user */
         $user = \Yii::$app->user->identity;
-        $userAddress = $user->getAddresses();
+        $userAddress = $user->getAddress();
+//        VarDumper::dump($userAddress,30,true);exit;
         return $this->render('index',[
             'userAddress'=>$userAddress,
             'user'=>$user
@@ -57,6 +59,7 @@ class ProfileController extends  \frontend\base\Controller
     } public function actionUpdateAccount()
     {
         $user = \Yii::$app->user->identity;
+        $user->scenario = User::SCENARIO_UPDATE;
         $userAddress = $user->getAddress();
 //        var_dump($user->getAddress());exit;
         $success = false;
