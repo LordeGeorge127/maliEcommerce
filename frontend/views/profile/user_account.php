@@ -10,8 +10,9 @@ use yii\bootstrap5\Html;
 ?>
 <?php if (isset($success) && $success): ?>
     <div class="alert alert-success">
-        Your account info was successfully updated
+        Your Account Address was successfully created
     </div>
+
 <?php endif ?>
 <?php $form = ActiveForm::begin([
     'action' => ['profile/update-account'],

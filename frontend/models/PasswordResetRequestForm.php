@@ -50,6 +50,8 @@ class PasswordResetRequestForm extends Model
         
         if (!User::isPasswordResetTokenValid($user->password_reset_token)) {
             $user->generatePasswordResetToken();
+//            var_dump( $user->generatePasswordResetToken());exit;
+//            Yii::debug($user->password_reset_token, 'email');
             if (!$user->save()) {
                 return false;
             }

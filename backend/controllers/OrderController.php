@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\order;
 use backend\models\search\OrderSearch;
+use yii\filters\AccessControl;
 use yii\helpers\VarDumper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -28,6 +29,17 @@ class OrderController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
+            ],
+            [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        ['actions' => ['index','update','view'],
+                            'allow' => true,
+                            'roles' => ['@']
+                        ]
+                    ]
+                ]
             ]
         );
     }
@@ -74,7 +86,7 @@ class OrderController extends Controller
         if (\Yii::$app->request->isPost) {
             $status = \Yii::$app->request->post('Order')['status'];
             $model->status = $status;
-            if (!in_array($status, [Order::STATUS_COMPLETED,Order::STATUS_DRAFT])) {
+            if (!in_array($status, [Order::STATUS_COMPLETED, Order::STATUS_DRAFT])) {
                 $model->addError('status', 'Invalid Status');
             } else if ($model->save()) {
 //               VarDumper::dump($status,20,true);exit;

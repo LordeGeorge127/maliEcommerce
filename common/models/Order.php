@@ -15,7 +15,7 @@ use yii\db\Exception;
  * @property string|null $lastname
  * @property string|null $email
  * @property string|null $transaction_id
- * @property string|null paypal_order_id
+ * @property string|null $paypal_order_id
  * @property int|null $created_at
  * @property int|null $created_by
  *
@@ -159,7 +159,8 @@ class Order extends \yii\db\ActiveRecord
             ->setTo(Yii::$app->params['adminEmail'])
             ->setSubject('New Order has been made at ' . Yii::$app->name)
             ->send();
-    }  public function SendEmailToCustomer()
+    }
+    public function SendEmailToCustomer()
     {
         return Yii::$app
             ->mailer

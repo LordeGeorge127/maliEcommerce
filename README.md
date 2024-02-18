@@ -5,6 +5,10 @@
     <h1 align="center">Yii 2 Advanced Project Template</h1>
     <br>
 </p>
+<p align="center">
+    <h1 align="center">Mali Commerce Project</h1>
+    <br>
+</p>
 
 Yii 2 Advanced Project Template is a skeleton [Yii 2](https://www.yiiframework.com/) application best for
 developing complex Web applications with multiple tiers.
@@ -58,3 +62,21 @@ frontend
 vendor/                  contains dependent 3rd-party packages
 environments/            contains environment-based overrides
 ```
+
+
+<p align="center">
+    <h1 align="center">Mali Commerce Project</h1>
+    <br>
+</p>
+
+# MaliCommerce
+
+Mali Commerce is an E-Commerce web application developed by the Yii2 Php Framework.The application utilises the MS SQL server SQL Db. 
+Has various functionalities in the frontend like add to cart,update cart,delete cart items ,profile management.
+Whilst in the backend Upload products  and publish products on frontend, delete orders ,view orders , update order status, has an admin dashboard to view orders with Piecharts etc.
+Its intergrated with paypal Checkout Payment System.
+It also features malitrap mail sending service upon ordering of items in the app.
+
+<kbd>![backendecommerce.png](https://github.com/LordeGeorge127/maliEcommerce/frontend/web/imagez/backendecommerce.png)
+</kbd>
+

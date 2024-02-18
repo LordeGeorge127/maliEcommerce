@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Product;
 use backend\models\search\ProductSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -28,6 +29,17 @@ class ProductController extends Controller
                         'delete' => ['POST'],
                     ],
                 ],
+            ],
+            [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'rules' => [
+                        ['actions' => ['index','update','delete','view','create'],
+                            'allow' => true,
+                            'roles' => ['@']
+                        ]
+                    ]
+                ]
             ]
         );
     }

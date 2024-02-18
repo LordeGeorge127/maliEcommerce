@@ -30,7 +30,8 @@ class ProductQuery extends \yii\db\ActiveQuery
     public function one($db = null)
     {
         return parent::one($db);
-    }  public function published()
+    }
+    public function published()
     {
         return $this->andWhere(['status'=>1]);
     }
