@@ -77,6 +77,18 @@ Whilst in the backend Upload products  and publish products on frontend, delete 
 Its intergrated with paypal Checkout Payment System.
 It also features malitrap mail sending service upon ordering of items in the app.
 
-<kbd>![backendecommerce.png](https://github.com/LordeGeorge127/maliEcommerce/frontend/web/imagez/backendecommerce.png)
+<kbd>![](frontend/web/imagez/mali2.png)
 </kbd>
+<kbd>![](frontend/web/imagez/malicart.png)
+</kbd>
+<kbd>![](frontend/web/imagez/Checkout1.png)
+</kbd>
+<kbd>![](frontend/web/imagez/checkout.png)
+</kbd>
+<kbd>![](frontend/web/imagez/backendecommerce.png)
+</kbd>
+
+
+
+
 
