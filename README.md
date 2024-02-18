@@ -87,6 +87,12 @@ It also features malitrap mail sending service upon ordering of items in the app
 </kbd>
 <kbd>![](frontend/web/imagez/backendecommerce.png)
 </kbd>
+<kbd>![](frontend/web/imagez/Orders.png)
+</kbd>
+<kbd>![](frontend/web/imagez/Order%20Details.png)
+</kbd>
+<kbd>![](frontend/web/imagez/Emailorder.png)
+</kbd>
 
 
 
